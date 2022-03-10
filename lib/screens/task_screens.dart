@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/task_list.dart';
+import './modal_screen.dart';
+
 class TasksScreens extends StatelessWidget {
   const TasksScreens({Key? key}) : super(key: key);
 
@@ -12,7 +15,10 @@ class TasksScreens extends StatelessWidget {
           Icons.add,
           size: 25.0,
         ),
-        onPressed: () {},
+        onPressed: () {
+          showModalBottomSheet(
+              context: context, builder: (context) => ModalScreen());
+        },
       ),
       backgroundColor: Colors.lightBlueAccent,
       body: Column(
@@ -59,12 +65,15 @@ class TasksScreens extends StatelessWidget {
           ),
           Expanded(
             child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 30.0),
               decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30.0),
-                    topRight: Radius.circular(30.0)),
+                  topLeft: Radius.circular(30.0),
+                  topRight: Radius.circular(30.0),
+                ),
               ),
+              child: TasksList(),
             ),
           ),
         ],
