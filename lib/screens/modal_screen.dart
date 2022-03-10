@@ -42,9 +42,7 @@ class ModalScreen extends StatelessWidget {
                 "Add",
                 style: TextStyle(fontSize: 25),
               ),
-              onPressed: () {
-                print("XD");
-              },
+              onPressed: () {},
             )
           ],
         ),

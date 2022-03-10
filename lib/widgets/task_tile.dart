@@ -1,48 +1,30 @@
 import 'package:flutter/material.dart';
 
-class TasksTile extends StatefulWidget {
-  const TasksTile({
-    Key? key,
-  }) : super(key: key);
+class TasksTile extends StatelessWidget {
+  final bool isChanged;
+  final String title;
+  final VoidCallback toggleState;
 
-  @override
-  State<TasksTile> createState() => _TasksTileState();
-}
-
-class _TasksTileState extends State<TasksTile> {
-  bool isChanged = false;
-  taskStateToggler(bool newValue) {
-    setState(() {
-      isChanged = newValue;
-    });
-  }
-
+  const TasksTile(
+      {Key? key,
+      required this.title,
+      required this.isChanged,
+      required this.toggleState})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 0.0),
       title: Text(
-        'This is sample Task',
+        title,
         style: TextStyle(
             decoration: isChanged ? TextDecoration.lineThrough : null),
       ),
-      trailing: TaskState(isChanged, taskStateToggler),
-    );
-  }
-}
-
-class TaskState extends StatelessWidget {
-  const TaskState(this.toggleTaskState, this.taskStateToggle, {Key? key})
-      : super(key: key);
-  final bool toggleTaskState;
-  final Function taskStateToggle;
-  @override
-  Widget build(BuildContext context) {
-    return Checkbox(
-      value: toggleTaskState,
-      onChanged: (newValue) {
-        taskStateToggle(newValue);
-      },
+      trailing: Checkbox(
+        value: isChanged,
+        activeColor: Colors.lightBlueAccent,
+        onChanged: (_) => toggleState(),
+      ),
     );
   }
 }
