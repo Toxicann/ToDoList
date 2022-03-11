@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 
 class ModalScreen extends StatelessWidget {
-  const ModalScreen({
-    Key? key,
-  }) : super(key: key);
+  final TextEditingController _controller = TextEditingController();
+  final Function addTaskCallback;
+
+  ModalScreen({Key? key, required this.addTaskCallback}) : super(key: key);
+
+  void dispose() {
+    _controller.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +36,10 @@ class ModalScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            const TextField(
+            TextField(
               autofocus: true,
               textAlign: TextAlign.center,
+              controller: _controller,
             ),
             const SizedBox(height: 20),
             ElevatedButton(
@@ -42,7 +48,9 @@ class ModalScreen extends StatelessWidget {
                 "Add",
                 style: TextStyle(fontSize: 25),
               ),
-              onPressed: () {},
+              onPressed: () {
+                addTaskCallback(_controller.text);
+              },
             )
           ],
         ),

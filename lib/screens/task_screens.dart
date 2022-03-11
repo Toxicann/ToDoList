@@ -2,9 +2,21 @@ import 'package:flutter/material.dart';
 
 import '../widgets/task_list.dart';
 import './modal_screen.dart';
+import '../models/task.dart';
 
-class TasksScreens extends StatelessWidget {
+class TasksScreens extends StatefulWidget {
   const TasksScreens({Key? key}) : super(key: key);
+
+  @override
+  State<TasksScreens> createState() => _TasksScreensState();
+}
+
+class _TasksScreensState extends State<TasksScreens> {
+  List<Task> tasks = [
+    Task(name: 'test1'),
+    Task(name: 'test2'),
+    Task(name: 'test3'),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +29,14 @@ class TasksScreens extends StatelessWidget {
         ),
         onPressed: () {
           showModalBottomSheet(
-              context: context, builder: (context) => ModalScreen());
+            context: context,
+            builder: (context) => ModalScreen(addTaskCallback: (newTask) {
+              setState(() {
+                tasks.add(Task(name: newTask));
+              });
+              Navigator.pop(context);
+            }),
+          );
         },
       ),
       backgroundColor: Colors.lightBlueAccent,
@@ -33,8 +52,8 @@ class TasksScreens extends StatelessWidget {
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                CircleAvatar(
+              children: [
+                const CircleAvatar(
                   child: Icon(
                     Icons.list,
                     size: 50.0,
@@ -43,10 +62,10 @@ class TasksScreens extends StatelessWidget {
                   backgroundColor: Colors.white,
                   radius: 40.0,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15.0,
                 ),
-                Text(
+                const Text(
                   "My TODOS",
                   style: TextStyle(
                       color: Colors.white,
@@ -54,8 +73,8 @@ class TasksScreens extends StatelessWidget {
                       fontWeight: FontWeight.w700),
                 ),
                 Text(
-                  "5 Left",
-                  style: TextStyle(
+                  '${tasks.length} Left',
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 18.0,
                   ),
@@ -73,7 +92,7 @@ class TasksScreens extends StatelessWidget {
                   topRight: Radius.circular(30.0),
                 ),
               ),
-              child: TasksList(),
+              child: TasksList(tasks),
             ),
           ),
         ],
