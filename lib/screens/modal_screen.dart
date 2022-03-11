@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class ModalScreen extends StatelessWidget {
-  ModalScreen({
+  const ModalScreen({
     Key? key,
   }) : super(key: key);
-  final TextEditingController _controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,8 +31,7 @@ class ModalScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            TextField(
-              controller: _controller,
+            const TextField(
               autofocus: true,
               textAlign: TextAlign.center,
             ),
