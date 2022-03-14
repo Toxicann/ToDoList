@@ -2,22 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../widgets/task_list.dart';
 import './modal_screen.dart';
-import '../models/task.dart';
+import '../models/task_data.dart';
+import 'package:provider/provider.dart';
 
-class TasksScreens extends StatefulWidget {
-  const TasksScreens({Key? key}) : super(key: key);
-
-  @override
-  State<TasksScreens> createState() => _TasksScreensState();
-}
-
-class _TasksScreensState extends State<TasksScreens> {
-  List<Task> tasks = [
-    Task(name: 'test1'),
-    Task(name: 'test2'),
-    Task(name: 'test3'),
-  ];
-
+class TasksScreens extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,12 +18,7 @@ class _TasksScreensState extends State<TasksScreens> {
         onPressed: () {
           showModalBottomSheet(
             context: context,
-            builder: (context) => ModalScreen(addTaskCallback: (newTask) {
-              setState(() {
-                tasks.add(Task(name: newTask));
-              });
-              Navigator.pop(context);
-            }),
+            builder: (context) => ModalScreen(),
           );
         },
       ),
@@ -73,7 +56,7 @@ class _TasksScreensState extends State<TasksScreens> {
                       fontWeight: FontWeight.w700),
                 ),
                 Text(
-                  '${tasks.length} Left',
+                  '${context.watch<TaskData>().taskCount} tasks',
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 18.0,
@@ -92,7 +75,7 @@ class _TasksScreensState extends State<TasksScreens> {
                   topRight: Radius.circular(30.0),
                 ),
               ),
-              child: TasksList(tasks),
+              child: TasksList(),
             ),
           ),
         ],

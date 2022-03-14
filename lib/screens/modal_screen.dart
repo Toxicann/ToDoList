@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../models/task_data.dart';
 
 class ModalScreen extends StatelessWidget {
   final TextEditingController _controller = TextEditingController();
-  final Function addTaskCallback;
-
-  ModalScreen({Key? key, required this.addTaskCallback}) : super(key: key);
 
   void dispose() {
     _controller.dispose();
@@ -49,7 +48,7 @@ class ModalScreen extends StatelessWidget {
                 style: TextStyle(fontSize: 25),
               ),
               onPressed: () {
-                addTaskCallback(_controller.text);
+                context.read<TaskData>().addTaskData(_controller.text);
               },
             )
           ],

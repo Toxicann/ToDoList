@@ -4,12 +4,14 @@ class TasksTile extends StatelessWidget {
   final bool isChanged;
   final String title;
   final VoidCallback toggleState;
+  final VoidCallback deleteTask;
 
   const TasksTile(
       {Key? key,
       required this.title,
       required this.isChanged,
-      required this.toggleState})
+      required this.toggleState,
+      required this.deleteTask})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -25,6 +27,7 @@ class TasksTile extends StatelessWidget {
         activeColor: Colors.lightBlueAccent,
         onChanged: (_) => toggleState(),
       ),
+      onLongPress: deleteTask,
     );
   }
 }
